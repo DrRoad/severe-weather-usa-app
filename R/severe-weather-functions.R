@@ -2,11 +2,14 @@
 ##
 ##      Functions for severe weather USA Map
 ##
+##      load_libraries
+##      load_data
+##      group_data
+##      plot_weather_map
 ## =============================================================
 
 ## Load libraries
 load_libraries <- function() {
-
         library(dplyr)
         library(grid)
         library(ggplot2)
@@ -16,8 +19,10 @@ load_libraries <- function() {
 ## Load data
 load_data <- function(fileName) {
         dF <- read.csv(fileName, sep = ",", header = TRUE, stringsAsFactors = FALSE, strip.white=TRUE)
+        dF
 }
 
+## group data per state
 group_data <- function(dF) {
         # Group the data per grouping formula
         dFgrouped <- dF %>% group_by(STATE)
@@ -26,7 +31,7 @@ group_data <- function(dF) {
 }
 
 
-
+## plot map
 plot_weather_map <- function(dF, eventType = "FLOOD", yearView = 1998, monthView = 8 ) {
         geodF <- dF[dF$year == yearView & dF$month == monthView & dF$EVENT_TYPE == eventType,]
         geodF <- group_data(geodF)
