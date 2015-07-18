@@ -32,8 +32,8 @@ group_data <- function(dF) {
 
 
 ## plot map
-plot_weather_map <- function(dF, eventType = "FLOOD", yearView = 1998, monthView = 8 ) {
-        geodF <- dF[dF$year == yearView & dF$month == monthView & dF$EVENT_TYPE == eventType,]
+plot_weather_map <- function(dF, eventType = "FLOOD", monthView = 8 ) {
+        geodF <- dF[dF$month == monthView & dF$EVENT_TYPE == eventType,]
         geodF <- group_data(geodF)
         states <- data.frame(STATE = state.abb, region = tolower(state.name))
         states_map <-map_data("state")
