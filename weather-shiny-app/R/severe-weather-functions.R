@@ -14,6 +14,7 @@ load_libraries <- function() {
         library(grid)
         library(ggplot2)
         library(ggthemes)
+        library(maps)
 }
 
 ## Load data
