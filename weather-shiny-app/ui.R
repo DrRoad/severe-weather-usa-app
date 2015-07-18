@@ -1,4 +1,13 @@
 library(shiny)
+
+## Load the functions
+source("./R/severe-weather-functions.R")
+## load libraries
+load_libraries()
+## load data
+weather <- load_data("./data/severe-weather-compact-db.csv")
+
+
 shinyUI(pageWithSidebar(
         headerPanel("USA severe weather maps"),
         sidebarPanel(

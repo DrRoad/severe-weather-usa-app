@@ -1,11 +1,11 @@
 library(shiny)
-
 ## Load the functions
-source("../R/severe-weather-functions.R")
+source("./R/severe-weather-functions.R")
 ## load libraries
 load_libraries()
 ## load data
-load_data("../data/severe-weather-compact-db.csv")
+weather <- load_data("./data/severe-weather-compact-db.csv")
+
 
 shinyServer(
         function(input, output){
