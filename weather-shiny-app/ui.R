@@ -12,16 +12,20 @@ shinyUI(pageWithSidebar(
         headerPanel("USA severe weather maps"),
         sidebarPanel(
                 h3('Options'),
-                sliderInput('monthView', 'Month', min = 1, max = 12, value = 6),
-                selectInput('eventview', 'Type of event', unique(weather$EVENT_TYPE)),
+                selectInput('destinationState', 'Where are you going ?', state.name),
+                sliderInput('monthView', 'Which month are you travelling ?', min = 1, max = 12, value = 3),
+                selectInput('variableView', 'What is your concern?', c("Death or Injury" = "health_impact",
+                                                          "Property or Crop Damages" = "DMG",
+                                                          "Global risks (risk index)" = "riskIndex"), selected = "riskIndex"),
+                
                 helpText("Documentation note 1",
                          "Documentation note 2",
                          "Documentation note 3")
         ),
         
         mainPanel(
-                h3('USA Map'),
-                textOutput('text1'),
-                plotOutput('weatherMap')
-        )
+                h3('Main risk :'),
+                h3(textOutput('topRisk')),
+                
+                plotOutput('weatherMap'))
 ))

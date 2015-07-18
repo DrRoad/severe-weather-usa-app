@@ -9,6 +9,10 @@ weather <- load_data("./data/severe-weather-compact-db.csv")
 
 shinyServer(
         function(input, output){
-                output$weatherMap <- renderPlot(plot_weather_map(weather, monthView = input$monthView, eventType = input$eventview))
+                x <- reactive({ find_main_risk(weather, monthView = input$monthView, stateView = input$destinationState, variableView = input$variableView)})
+                y <- reactive({input$variableView})
+                output$topRisk <- renderText(x())
+                
+                output$weatherMap <- renderPlot(plot_weather_map(weather, monthView = input$monthView, eventType = x(), variableView = y()))
         }
 )
