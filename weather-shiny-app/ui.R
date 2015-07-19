@@ -33,14 +33,18 @@ shinyUI(pageWithSidebar(
                                  plotOutput('weatherMap'),
                                  helpText("If states are shown in white, it means no available data")),
                         tabPanel("Best Month to travel",
-                                 p('Calculate the best month to travel in the same place'),
+                                 h4('The safest month to travel in this state is :'),
+                                 h3(textOutput('topMonth')),
+                                 hr(),
                                  dataTableOutput('bestMonth')
                         ),
                         tabPanel("Best state to travel",
-                                 p('Calculate the best state to travel in the same month'),
+                                 h4('The safest state to travel during this month is :'),
+                                 h3(textOutput('topState')),
+                                 hr(),
                                  dataTableOutput('bestState')
                         ),
-                        tabPanel("Help / documentation",
+                        tabPanel("Documentation",
                                  p('data sources'),
                                  p('scrip sources'),
                                  p('license')

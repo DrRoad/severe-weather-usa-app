@@ -19,6 +19,7 @@ load_libraries <- function() {
         library(ggplot2)
         library(ggthemes)
         library(maps)
+        library(Hmisc)
 }
 
 ##      [2]
@@ -82,7 +83,7 @@ find_main_risk <-
                         subdFgrouped <- arrange(subdFgrouped, desc(riskIndex))
                 }
                 #subdFgrouped[1:3,]$EVENT_TYPE
-                subdFgrouped[1,]$EVENT_TYPE
+                capitalize(tolower(subdFgrouped[1,]$EVENT_TYPE))
         }
 
 
@@ -93,7 +94,7 @@ find_main_risk <-
 ## =======================================
 plot_weather_map <-
         function(dF, eventType = "FLOOD", monthView = 8 , variableView = "riskIndex", mapTitle = "Map of same events over the same month") {
-
+                eventType <- toupper(eventType)
                 mapTitle <- paste("Map of", eventType, "for the month of", month.name[monthView])
                                 
                 ## subset weather events for the month and the type
@@ -165,6 +166,7 @@ find_best_month <-
                 subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
                 subdFgrouped$month <- month.name[subdFgrouped$month]
                 subdFgrouped <- arrange(subdFgrouped, riskIndex)
+                message(str(subdFgrouped))
                 subdFgrouped
                 #subdFgrouped[1:3,]$EVENT_TYPE
                 #subdFgrouped[nrow(subdFgrouped),]$month
@@ -190,9 +192,9 @@ find_best_state <-
                 subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
                 #subdFgrouped$month <- month.name[subdFgrouped$month]
                 subdFgrouped <- arrange(subdFgrouped, riskIndex)
-                names(subdFgrouped) <- c("risk_index", "State")
-                
-                
+                message(str(subdFgrouped))
+                names(subdFgrouped) <- c("State", "risk_index")
+                subdFgrouped$State <- capitalize(as.character(subdFgrouped$State))
                 subdFgrouped
                 #subdFgrouped[1:3,]$EVENT_TYPE
                 #subdFgrouped[nrow(subdFgrouped),]$month
