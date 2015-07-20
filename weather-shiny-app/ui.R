@@ -20,7 +20,7 @@ shinyUI(pageWithSidebar(
                 helpText("Data are cumulated amount between 1950 and 2011"),
                 helpText("Death of Injuries in number of cases"),
                 helpText("Damages in USD for properties and crop"),
-                helpText("Global risk index is an agregated index, see documentation for details")
+                helpText("Global risk index [0-100] is an agregated index, see documentation for details")
         ),
         
         mainPanel(
