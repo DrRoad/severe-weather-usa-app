@@ -96,7 +96,7 @@ plot_weather_map <-
         function(dF, eventType = "FLOOD", monthView = 8 , variableView = "riskIndex", mapTitle = "Map of same events over the same month") {
                 eventType <- toupper(eventType)
                 mapTitle <- paste("Map of", eventType, "for the month of", month.name[monthView])
-                                
+                
                 ## subset weather events for the month and the type
                 geodF <- dF[dF$month == monthView & dF$EVENT_TYPE == eventType,]
                 geodF <- group_data(geodF)
@@ -104,13 +104,13 @@ plot_weather_map <-
                 ## create data frame of states and abreviations
                 states <-
                         data.frame(STATE = state.abb, region = tolower(state.name))
-
+                
                 ## merge with severe weather data
                 geodF <-
                         merge(
                                 geodF, states, by.x = "STATE", by.y = "STATE", all.y = TRUE
                         )
-
+                
                 ## generate names for ggplot map
                 states_map <- map_data("state")
                 cnames <-
@@ -123,17 +123,17 @@ plot_weather_map <-
                 ## generate the choropleth
                 p1 <- ggplot(geodF, aes(map_id = region))
                 p1 <- p1 + geom_map(
-                                aes_string(fill = variableView, label = "STATE"), map = states_map, color =
-                                        "black"
-                        )
+                        aes_string(fill = variableView, label = "STATE"), map = states_map, color =
+                                "black"
+                )
                 p1 <- p1 + expand_limits(x = states_map$long, y = states_map$lat)
                 p1 <- p1 + theme_few()
                 p1 <- p1 + geom_text(
-                                data = cnames, aes(
-                                        long, lat, label = region,
-                                        angle = angle, map_id = NULL
-                                ), size = 3.5
-                        )
+                        data = cnames, aes(
+                                long, lat, label = region,
+                                angle = angle, map_id = NULL
+                        ), size = 3.5
+                )
                 p1 <- p1 + theme(
                         legend.position = "bottom",
                         axis.ticks = element_blank(),
@@ -151,7 +151,7 @@ plot_weather_map <-
 ##      return main risk for a state / month
 ## ======================================
 find_best_month <-
-        function(dF, stateView = "texas") {
+        function(dF, stateView = "texas", variableView = "riskIndex") {
                 # get the state name
                 ## USA States data
                 states <-
@@ -161,11 +161,27 @@ find_best_month <-
                 
                 subdF <- dF[dF$STATE == stateView,]
                 subdFgrouped <- subdF %>% group_by(month)
-                subdFgrouped <-
-                        subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), riskIndex)
-                subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
+                
+                if(variableView == "riskIndex"){
+                        subdFgrouped <-
+                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), riskIndex)
+                        subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
+                        subdFgrouped <- arrange(subdFgrouped, riskIndex)
+                }
+                if(variableView == "health_impact"){
+                        subdFgrouped <-
+                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), health_impact)
+                        subdFgrouped$health_impact <- round(subdFgrouped$health_impact)
+                        subdFgrouped <- arrange(subdFgrouped, health_impact)
+                }
+                if(variableView == "DMG"){
+                        subdFgrouped <-
+                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), DMG)
+                        subdFgrouped$DMG <- round(subdFgrouped$DMG)
+                        subdFgrouped <- arrange(subdFgrouped, DMG)
+                }
+                
                 subdFgrouped$month <- month.name[subdFgrouped$month]
-                subdFgrouped <- arrange(subdFgrouped, riskIndex)
                 message(str(subdFgrouped))
                 subdFgrouped
                 #subdFgrouped[1:3,]$EVENT_TYPE
@@ -178,24 +194,38 @@ find_best_month <-
 ##      return main risk for a state / month
 ## ======================================
 find_best_state <-
-        function(dF, monthView = 8) {
+        function(dF, monthView = 8, variableView = "riskIndex") {
                 # get the state name
                 ## USA States data
                 states <-
                         data.frame(STATE = state.abb, region = tolower(state.name))
                 dF <- merge(dF, states, by = "STATE")
-
+                
                 subdF <- dF[dF$month == monthView,]
                 subdFgrouped <- subdF %>% group_by(region)
-                subdFgrouped <-
-                        subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), riskIndex)
-                subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
-                #subdFgrouped$month <- month.name[subdFgrouped$month]
-                subdFgrouped <- arrange(subdFgrouped, riskIndex)
+                
+                if(variableView == "riskIndex"){
+                        subdFgrouped <-
+                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), riskIndex)
+                        subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
+                        subdFgrouped <- arrange(subdFgrouped, riskIndex)
+                }
+                
+                if(variableView == "health_impact"){
+                        subdFgrouped <-
+                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), health_impact)
+                        subdFgrouped$health_impact <- round(subdFgrouped$health_impact)
+                        subdFgrouped <- arrange(subdFgrouped, health_impact)
+                }
+                if(variableView == "DMG"){
+                        subdFgrouped <-
+                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), DMG)
+                        subdFgrouped$DMG <- round(subdFgrouped$DMG)
+                        subdFgrouped <- arrange(subdFgrouped, DMG)
+                }
                 message(str(subdFgrouped))
                 names(subdFgrouped) <- c("State", "risk_index")
                 subdFgrouped$State <- capitalize(as.character(subdFgrouped$State))
                 subdFgrouped
-                #subdFgrouped[1:3,]$EVENT_TYPE
-                #subdFgrouped[nrow(subdFgrouped),]$month
+                
         }
