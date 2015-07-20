@@ -35,7 +35,9 @@ load_data <- function(fileName) {
         dF$health_impact <- dF$FATALITIES + dF$INJURIES
         
         ## create the riskIndex
-        dF$riskIndex <- log(dF$DMG + 1)/2 + 3 * log(dF$health_impact + 1)
+        #dF$riskIndex <- log(dF$DMG + 1)/2 + 3 * log(dF$health_impact + 1)
+        dF$riskIndex <- (log(dF$DMG + 1)/1.1 + 4 * log(dF$health_impact + 1))/max(log(dF$DMG + 1)/1.1 + 4 * log(dF$health_impact + 1))*100
+        
         
         ## return the dataframe of severe weather events
         dF
@@ -164,19 +166,19 @@ find_best_month <-
                 
                 if(variableView == "riskIndex"){
                         subdFgrouped <-
-                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), riskIndex)
+                                subdFgrouped %>% summarise_each(funs(max(., na.rm = TRUE)), riskIndex)
                         subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
                         subdFgrouped <- arrange(subdFgrouped, riskIndex)
                 }
                 if(variableView == "health_impact"){
                         subdFgrouped <-
-                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), health_impact)
+                                subdFgrouped %>% summarise_each(funs(max(., na.rm = TRUE)), health_impact)
                         subdFgrouped$health_impact <- round(subdFgrouped$health_impact)
                         subdFgrouped <- arrange(subdFgrouped, health_impact)
                 }
                 if(variableView == "DMG"){
                         subdFgrouped <-
-                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), DMG)
+                                subdFgrouped %>% summarise_each(funs(max(., na.rm = TRUE)), DMG)
                         subdFgrouped$DMG <- round(subdFgrouped$DMG)
                         subdFgrouped <- arrange(subdFgrouped, DMG)
                 }
@@ -206,25 +208,31 @@ find_best_state <-
                 
                 if(variableView == "riskIndex"){
                         subdFgrouped <-
-                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), riskIndex)
+                                subdFgrouped %>% summarise_each(funs(max(., na.rm = TRUE)), riskIndex)
                         subdFgrouped$riskIndex <- round(subdFgrouped$riskIndex)
                         subdFgrouped <- arrange(subdFgrouped, riskIndex)
-                }
+                        message(str(subdFgrouped))
+                        names(subdFgrouped) <- c("State", "risk_index")
+                        
+                        }
                 
                 if(variableView == "health_impact"){
                         subdFgrouped <-
-                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), health_impact)
+                                subdFgrouped %>% summarise_each(funs(max(., na.rm = TRUE)), health_impact)
                         subdFgrouped$health_impact <- round(subdFgrouped$health_impact)
                         subdFgrouped <- arrange(subdFgrouped, health_impact)
+                        message(str(subdFgrouped))
+                        names(subdFgrouped) <- c("State", "heath_impact")
                 }
                 if(variableView == "DMG"){
                         subdFgrouped <-
-                                subdFgrouped %>% summarise_each(funs(sum(., na.rm = TRUE)), DMG)
+                                subdFgrouped %>% summarise_each(funs(max(., na.rm = TRUE)), DMG)
                         subdFgrouped$DMG <- round(subdFgrouped$DMG)
                         subdFgrouped <- arrange(subdFgrouped, DMG)
+                        message(str(subdFgrouped))
+                        names(subdFgrouped) <- c("State", "DMG")
                 }
                 message(str(subdFgrouped))
-                names(subdFgrouped) <- c("State", "risk_index")
                 subdFgrouped$State <- capitalize(as.character(subdFgrouped$State))
                 subdFgrouped
                 

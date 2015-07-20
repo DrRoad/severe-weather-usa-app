@@ -45,7 +45,7 @@ shinyUI(pageWithSidebar(
                                  dataTableOutput('bestState')
                         ),
                         tabPanel("Documentation",
-                                p('The purpose of this app is to inform the user about the biggest potential server weather risk she/he may encounter while travelling in a specific state for a specific month. Then the app will recommend the best month to travel to this location as well as where in USA would be the safest during the same period.'),
+                                p('The purpose of this app is to inform the user about the biggest potential server weather risk she/he may encounter while travelling in a specific state for a specific month. Then the app will recommend the best month to travel to this location (for which the risk is the lowest) as well as where in USA would be the safest during the same period.'),
                                 p('In addition, a map of USA illustrates the distribution risk of similar severe weather events during the same period.'),
                                  hr(),
                                  p('To use the app, select your destination of travel (State name), and the month of travel.'),
