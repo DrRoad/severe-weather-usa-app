@@ -23,7 +23,7 @@ The app returns :
 2. The estimation of what would be the best month to travel in this state
 3. The estimation of what would be the best (safest) state to travel during this month
 
-The app is available here : https://longwei.shinyapps.io/weather-shiny-app
+The app is available onn shinyapps : https://longwei.shinyapps.io/weather-shiny-app
 
 --- .class #id 
 

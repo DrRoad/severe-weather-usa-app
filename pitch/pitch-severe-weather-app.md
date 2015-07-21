@@ -23,7 +23,7 @@ The app returns :
 2. The estimation of what would be the best month to travel in this state
 3. The estimation of what would be the best (safest) state to travel during this month
 
-The app is available here : https://longwei.shinyapps.io/weather-shiny-app
+The app is available onn shinyapps : https://longwei.shinyapps.io/weather-shiny-app
 
 --- .class #id 
 
@@ -35,7 +35,7 @@ The data used by this app is a cleaned and tidy data set of severe weather event
 http://rpubs.com/longwei66/87696 for details). This dataset is stored in the data frame `weather` which consists in 7039 of 11 variables. An extract is presented bellow.
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Tue Jul 21 23:05:27 2015 -->
+<!-- Tue Jul 21 23:36:27 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> month </th> <th> EVENT_TYPE </th> <th> STATE </th> <th> DMG </th> <th> health_impact </th> <th> riskIndex </th>  </tr>
   <tr> <td align="right"> 1 </td> <td align="right">   1 </td> <td> AVALANCHE </td> <td> AK </td> <td align="right"> 536000.00 </td> <td align="right">   6 </td> <td align="right"> 36.56 </td> </tr>
