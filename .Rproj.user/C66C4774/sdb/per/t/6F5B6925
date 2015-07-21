@@ -1,0 +1,17 @@
+{
+    "contents" : "---\ntitle       : USA Severe Weather - travel risk advisor\nsubtitle    : A shiny app to inform about severe weather in USA\nauthor      : Barthelemy Longueville\njob         : Coursera - Developping Data Products Assignement\nframework   : io2012        # {io2012, html5slides, shower, dzslides, ...}\nhighlighter : highlight.js  # {highlight.js, prettify, highlight}\nhitheme     : tomorrow      # \nwidgets     : []            # {mathjax, quiz, bootstrap}\nmode        : selfcontained # {standalone, draft}\nknit        : slidify::knit2slides\n---\n\n## App objectives and principle\n\nThe objective of this shiny app is to inform the user about the most critical severe weather risks which could be encoutered while travelling to a specific USA State during a specific month.\n\nAs inputs; the user have to select, The month of travelling, an USA state of destination, the type of risk. Global risk index is selected per default, but one can choose health impact or damages impact\n\nThe app returns :\n\n1. The most important severe weather event in term of impact (as selected by the user), with a map of USA showing where this type of weather event is the most active for the month\n2. The estimation of what would be the best month to travel in this state\n3. The estimation of what would be the best (safest) state to travel during this month\n\n\n--- .class #id \n\n## Data Source\n\nThe data used by this app is \nhttp://rpubs.com/longwei66/87696\n\n--- .class #id \n\n## Risk Index\n\nhttp://rpubs.com/longwei66/87696\n\n\n--- .class #id \n\n## Risk Index\n\nhttp://rpubs.com/longwei66/87696\n\n\n\n\n",
+    "created" : 1437320019056.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "489128850",
+    "id" : "6F5B6925",
+    "lastKnownWriteTime" : 1437325098,
+    "path" : "~/ownCloud/Projets/Data-Science/coursera/9_Developping_data_products/Project-Assignement/severe-weather-usa-app/severe-weather-app-pitch/index.Rmd",
+    "project_path" : "severe-weather-app-pitch/index.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}

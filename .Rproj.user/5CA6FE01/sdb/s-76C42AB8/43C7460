@@ -1,0 +1,18 @@
+{
+    "contents" : "library(shiny)\n## Load the functions\nsource(\"./R/severe-weather-functions.R\")\n## load libraries\nload_libraries()\n## load data\nweather <- load_data(\"./data/severe-weather-compact-db.csv\")\n\n\nshinyServer(\n        function(input, output){\n                ## use reactive function to get update of top risk for state / month\n                x <- reactive({ find_main_risk(weather, monthView = input$monthView, stateView = input$destinationState, variableView = input$variableView)})\n                y <- reactive({input$variableView})\n                z <- reactive({find_best_month(weather, stateView = input$destinationState, variableView = input$variableView)})\n                w <- reactive({find_best_state(weather, monthView = input$monthView, variableView = input$variableView)})\n                q <- reactive({find_best_month(weather, stateView = input$destinationState)[1,]$month})\n                k <- reactive({find_best_state(weather, monthView = input$monthView)[1,]$State})\n                \n                ## generate output variables, toprisk and weathermap\n                output$topRisk <- renderText(x())\n                output$weatherMap <- renderPlot(plot_weather_map(weather, monthView = input$monthView, eventType = x(), variableView = y()))\n                output$bestMonth <- renderDataTable(z())\n                output$bestState <- renderDataTable(w())\n                output$topMonth <- renderText(q())\n                output$topState <- renderText(k())\n                \n        }\n)",
+    "created" : 1437214433478.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2881400642",
+    "id" : "43C7460",
+    "lastKnownWriteTime" : 1437407982,
+    "path" : "~/ownCloud/Projets/Data-Science/coursera/9_Developping_data_products/Project-Assignement/severe-weather-usa-app/weather-shiny-app/server.R",
+    "project_path" : "weather-shiny-app/server.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

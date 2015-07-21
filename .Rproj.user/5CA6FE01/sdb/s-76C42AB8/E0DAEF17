@@ -1,0 +1,17 @@
+{
+    "contents" : "## from weather data frame\nweather <- load_data(\"/home/longwei/ownCloud/Projets/Data-Science/coursera/5_Reproductible Research/peer-assessment-2/clean_severe_weather_events.csv\")\nweatherG <- weather %>% group_by(month, EVENT_TYPE, STATE)\nweatherG <- weatherG %>% summarise_each(funs(sum(.,na.rm = TRUE)), CROPDMG, PROPDMG, FATALITIES, INJURIES, DMG)\nweatherG$health_impact <- weatherG$FATALITIES + weatherG$INJURIES\nwrite.csv(x = weatherG, file = \"data/severe-weather-compact-db.csv\")",
+    "created" : 1437230720210.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "333171134",
+    "id" : "E0DAEF17",
+    "lastKnownWriteTime" : 1437215925,
+    "path" : "~/ownCloud/Projets/Data-Science/coursera/9_Developping_data_products/Project-Assignement/severe-weather-usa-app/create-data.R",
+    "project_path" : "create-data.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
